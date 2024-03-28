@@ -1,0 +1,115 @@
+version: "0.1"
+user: amanc
+key: pyimrYgw2nNu717noPaaHKZrFK4l9XXixmm6U2YquuBHQtTQ0a
+testSuites: []
+pre: ['mvn -Dmaven.repo.local=${CACHE_DIR} -Dmaven.test.skip=true clean install']
+preDirectives:
+    commands: ['mvn -Dmaven.repo.local=${CACHE_DIR} -Dmaven.test.skip=true clean install']
+    maxRetries: 0
+    shell: ""
+    workingDirectory: ""
+post: [cat hyperexecute-zephyr-scale.yaml]
+postDirectives:
+    commands: [cat hyperexecute-zephyr-scale.yaml]
+    shell: ""
+    workingDirectory: ""
+env:
+    CACHE_DIR: m2_cache_dir
+    TARGET_OS: linux
+jobLabel:
+    - hyperexecute
+    - zephyr
+runson: linux
+autosplit: true
+concurrency: 3
+testDiscovery:
+    autosubset: true
+    command: grep 'public class' src/test/java/com/lambdatest/*.java | awk '{print$3}'
+    mode: dynamic
+    type: raw
+testRunnerCommand: mvn -Dplatname=linux -Dmaven.repo.local=m2_cache_dir -Dtest=$test -P single
+globalTimeout: 150
+tunnelOpts:
+    testsPerTunnel: 10
+testSuiteTimeout: 150
+testSuiteStep: 150
+cacheDirectories:
+    - ${CACHE_DIR}
+cacheKey: '{{ checksum "pom.xml" }}'
+retryOnFailure: true
+shell: bash
+maxRetries: 1
+jobID: ab51f15e-d1f0-4341-a9dc-270ec4f33750
+codeDirectory: hyp-zephyr-scale-integration
+framework:
+    name: ""
+    flags: []
+    discoveryFlags: []
+    discoveryType: ""
+    runnerFlags: []
+    workingDirectory: ""
+    isTestNGXMLSuite: false
+    defaultReports: false
+    args:
+        appPath: ""
+        testSuitePath: ""
+        xcTestPlanPath: ""
+        shards:
+            mappings: []
+        filters:
+            attributes: []
+        devices: []
+        deviceSelectionStrategy: ""
+        appId: ""
+        testSuiteAppId: ""
+        xcTestPlanId: ""
+        buildName: ""
+        skipXMLOnRun: false
+        skipInstall: false
+        disableReleaseDevice: false
+        platformName: ""
+        isRealMobile: false
+        avoidAppLaunch: false
+        queueTimeout: 0
+        uninstallPreviousBuild: false
+        language: ""
+        locale: ""
+        preservedDevice: false
+        fixedIP: ""
+        resignApp: true
+        minorOsVersion: false
+        playwrightRD: false
+        mobileDC: null
+        skipUninstallPreviousBuild: false
+    additional_args: null
+    licenseKey: ""
+    userdefinediscovery: false
+    toscaArgs: null
+    version: ""
+    downloadURL: ""
+    baseCommand: ""
+cypress: false
+betaFeature:
+    setPartiallyCompletedAsCompleted: false
+combineTasksInMatrixMode: false
+captureScreenRecordingForScenarios: false
+maxRetriesPreSteps: 0
+triggerMode: false
+sourcePayload:
+    verifySSL: true
+collectLocalGitData: true
+dynamicAllocation: false
+appium: false
+platformConfig: null
+differentialUpload:
+    enabled: false
+    ttlHours: null
+    forcedDisabled: false
+project:
+    id: ""
+    name: ""
+    type: default
+meta: {}
+alwaysRunPostSteps: false
+errorCategorizedOnFailureOnly: false
+storageType: ""
